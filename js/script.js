@@ -18,7 +18,7 @@ document.querySelector('#searchButton').addEventListener('click', function(event
             jsonResult = myJson;
 
             let flexBoxes = document.querySelectorAll('.flex-item');
-            document.querySelector('.flex-container').style.backgroundColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 50%)';
+            document.querySelector('.flex-container').style.backgroundColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 70%)';
             document.querySelector('.flex-container').style.borderColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 100%)';
             for (let box of flexBoxes) {
                 box.style.borderColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 100%)';
@@ -33,7 +33,8 @@ document.querySelector('#searchButton').addEventListener('click', function(event
             for (; typeNum < jsonResult.types.length; ++typeNum) {
                 let typeName = jsonResult.types[typeNum].type.name;
                 typeBoxes[typeNum].innerText = typeName;
-                typeBoxes[typeNum].style.backgroundColor = 'hsla(var(--' + typeName + '), 50%)';
+                typeBoxes[typeNum].style.visibility = 'visible';
+                typeBoxes[typeNum].style.backgroundColor = 'hsla(var(--' + typeName + '), 70%)';
             }
             for (; typeNum < 2; ++typeNum) {
                 typeBoxes[typeNum].style.visibility = 'hidden';
@@ -43,16 +44,32 @@ document.querySelector('#searchButton').addEventListener('click', function(event
             let abBoxes = flexBoxes[4].querySelectorAll('.pkAbility');
             for(let abNum = 0; abNum < jsonResult.abilities.length; ++abNum) {
                 let abilityJSON = jsonResult.abilities[abNum];
-                if(abilityJSON.is_hidden) {
+                if (abilityJSON.is_hidden) {
+                    abBoxes[2].style.visibility = 'visible';
                     abBoxes[2].innerText = abilityJSON.ability.name;
                 }
                 else {
+                    abBoxes[abCount].style.visibility = 'visible';
                     abBoxes[abCount++].innerText = abilityJSON.ability.name;
                 }
             }
             if(abCount < 2) {
                 abBoxes[1].style.visibility = 'hidden';
             }
+
+            let sizeBoxes = flexBoxes[5].querySelectorAll('.pkSize');
+            let height = jsonResult.height / 10;
+            sizeBoxes[0].innerText = height + " m";
+            let weight = jsonResult.weight / 10;
+            sizeBoxes[1].innerText = weight + " kg";
+
+            flexBoxes[6].querySelector('.moves-holder').innerHTML = null; 
+            let result = "<div class='moves'>";
+            for(let moveData of jsonResult.moves) {
+                result += '<div class="pkMove">' + moveData.move.name + '</div>';
+            }
+            result += "</div>";
+            flexBoxes[6].querySelector('.moves-holder').innerHTML = result; 
         }).catch((error) => { console.log("Invalid Pokémon."); });
 });
 
