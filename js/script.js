@@ -16,14 +16,42 @@ document.querySelector('#searchButton').addEventListener('click', function(event
         .then((myJson) => { 
             console.log(myJson);
             jsonResult = myJson;
+
             let flexBoxes = document.querySelectorAll('.flex-item');
+            document.querySelector('.flex-container').style.backgroundColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 50%)';
+            document.querySelector('.flex-container').style.borderColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 100%)';
+            for (let box of flexBoxes) {
+                box.style.borderColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 100%)';
+            }
+
             flexBoxes[0].innerText = capitalizeFirstLetter(jsonResult.name);
             flexBoxes[1].innerText = '#' + jsonResult.id;
             flexBoxes[2].querySelector('#sprite').innerHTML = '<img src="' + jsonResult.sprites.front_default + '">';
-            document.querySelector('.flex-container').style.backgroundColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 50%)';
-            document.querySelector('.flex-container').style.borderColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 100%)';
-            for(let box of flexBoxes) {
-                box.style.borderColor = 'hsla(var(--' + jsonResult.types[0].type.name + '), 100%)';
+
+            let typeBoxes = flexBoxes[3].querySelectorAll('.pkType');
+            let typeNum = 0;
+            for (; typeNum < jsonResult.types.length; ++typeNum) {
+                let typeName = jsonResult.types[typeNum].type.name;
+                typeBoxes[typeNum].innerText = typeName;
+                typeBoxes[typeNum].style.backgroundColor = 'hsla(var(--' + typeName + '), 50%)';
+            }
+            for (; typeNum < 2; ++typeNum) {
+                typeBoxes[typeNum].style.visibility = 'hidden';
+            }
+
+            let abCount = 0;
+            let abBoxes = flexBoxes[4].querySelectorAll('.pkAbility');
+            for(let abNum = 0; abNum < jsonResult.abilities.length; ++abNum) {
+                let abilityJSON = jsonResult.abilities[abNum];
+                if(abilityJSON.is_hidden) {
+                    abBoxes[2].innerText = abilityJSON.ability.name;
+                }
+                else {
+                    abBoxes[abCount++].innerText = abilityJSON.ability.name;
+                }
+            }
+            if(abCount < 2) {
+                abBoxes[1].style.visibility = 'hidden';
             }
         }).catch((error) => { console.log("Invalid Pokémon."); });
 });
@@ -33,7 +61,9 @@ function getImgName(shiny, front) {
 }
 
 function setSprite(shiny, front) {
-    document.querySelector('#sprite').innerHTML = '<img src="' + jsonResult.sprites[getImgName(shiny, front)] + '">';
+    if (jsonResult.sprites[getImgName(shiny, front)]) {
+        document.querySelector('#sprite').innerHTML = '<img src="' + jsonResult.sprites[getImgName(shiny, front)] + '">';
+    }
 }
 
 let shinyButton = document.querySelector('#shinyButton');

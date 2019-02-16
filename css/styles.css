@@ -244,3 +244,27 @@ form {
     font-size: 0.8rem;
     color: rgba(0, 0, 0, 0.5);
 }
+
+.traits {
+    height: 200px;
+}
+
+.traits, .pkType, .pkAbility {
+    width: 160px;
+    text-align: center;
+    display: inline-block;
+}
+
+.pkType, .pkAbility {
+    margin: 1rem 0 0;
+    height: 2rem;
+    line-height: 2rem;
+}
+
+.pkType {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.pkAbility {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
