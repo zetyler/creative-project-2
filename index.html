@@ -16,9 +16,11 @@
         </header>
         <article>
             <form>
-                <input type="text" placeholder="Who's That Pokémon?" id="pokemonInput" />
-                <input type="button" value="Search" id="searchButton" />
+                <input type="text" placeholder="Who's That Pokémon?" id="pokemonInput" title="Need some examples? Try pikachu, charmander, bulbasaur, and squirtle." />
+                <input type="button" value="Search" id="searchButton" class="button" />
+                <p class="hint">Need an example? Try Pikachu, Bulbasaur, Charmander, or Squirtle.</p>
             </form>
+            
             <div id="searchResponse">
                 <div class="flex-container">
                     <div class="flex-item">
@@ -26,7 +28,14 @@
                     </div><div class="flex-item">
                         <p>ID</p>
                     </div><div class="flex-item">
-                        <img src="https://via.placeholder.com/192">
+                        <div id="sprite">
+                            <div id="sprite-holder">?</div>
+                        </div>
+                        <form>
+                            <input type="button" value="Not Shiny" id="shinyButton" class="button" />
+                            <input type="button" value="Front" id="frontButton" class="button" />
+                            <input type="button" value="Back" id="backButton" class="button" />
+                        </form>
                     </div><div class="flex-item">
                     
                     </div><div class="flex-item">
