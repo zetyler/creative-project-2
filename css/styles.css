@@ -245,6 +245,11 @@ form {
     color: rgba(0, 0, 0, 0.5);
 }
 
+.hint a {
+    text-decoration: none;
+    color: hsla(0, 60%, 51%, 1);
+}
+
 .traits {
     height: 200px;
 }
@@ -253,6 +258,30 @@ form {
     width: 160px;
     text-align: center;
     display: inline-block;
+}
+
+@media (min-width: 350px) {
+    .pkType, .pkAbility {
+        width: 120px;
+    }
+}
+
+@media (min-width: 400px) {
+    .pkType, .pkAbility {
+        width: 160px;
+    }
+}
+
+@media (min-width: 520px) {
+    .pkType, .pkAbility, .pkSize {
+        width: 120px;
+    }
+}
+
+@media (min-width: 600px) {
+    .pkType, .pkAbility, .pkSize {
+        width: 160px;
+    }
 }
 
 .pkType, .pkAbility, .pkSize {
@@ -277,6 +306,24 @@ form {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 16px 0 0;
+}
+
+@media (min-width: 320px) {
+    .moves {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 400px) {
+    .moves {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 600px) {
+    .moves {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }
 
 .pkMove {
